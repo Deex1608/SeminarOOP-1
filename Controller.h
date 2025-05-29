@@ -37,12 +37,12 @@ private:
     stack<unique_ptr<UndoAction>> actions;
 public:
     Controller(MediaRepository& ms): m(ms){}
-    void addItem(string& url, string& title, int duration, string& artist) {
+    void addItem(string url, string title, int duration, string artist) {
         shared_ptr<Media> s1=std::make_shared<Song>(url,title,duration,artist);
         m.addItem(s1);
         std::unique_ptr<UndoAction> act = std::make_unique<UndoAdd>(s1,m);
-       // act->executeUndo();
-        actions.push(act);
+        //act->executeUndo();
+        //actions.push(act);
     }
 
     void undo() {
@@ -50,6 +50,11 @@ public:
 
         }
     }
+
+    auto getMediaRepository() {
+        return m.getAllItems();
+    }
+
 
 };
 #endif //CONTROLLER_H
